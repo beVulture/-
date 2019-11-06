@@ -41,6 +41,77 @@
 			使用场景，如果涉及到频繁的插入和删除操作，选择LinkedList
 					  如果涉及到频繁查找的操作，使用ArrayList
 					声明方式和ArrayList一样
-	Set：数据集	将一组对象无序放在集合中
-	Map：映射集	将两组对象的映射关系放在集合中
+					
+			Vector：同样实现了list接口，但部分特定方法使用了同步
+					（1）可以应用于多线程的开发环境，线程安全
+					（2）速度较慢
+					
+	Collections集合工具类：
+		Collections.synchronizedXXX将线程不安全集合转换成线程安全的集合
+		
+	Set（接口）：数据集	将一组对象无序放在集合中
+		HashSet使用hash表来存放数据集合
+			（1）HashSet底层实现为HashMap
+			（2）相同的对象在HashSet中只会存储一份
+			（3）HashSet数据的底层存储是没有顺序的，不会按照插入顺序进行排序
+			（4）HashSet没有下标的概念，没有先后的概念
+			     
+		增：add（）添加一个对象，对象类型必须符合生命要求，将当前添加的对象作为底层HashMap的key
+			附带一个没有实际意义的对象作为HashMap的值
+			addAll（）将另外一个Collection集合中的元素全部添加到HashSet中
+		
 	
+	Map（接口）：映射集	将两组对象的映射关系放在集合中
+		HashMap：HashMap<String,String> hashMap=new HashMap<String，String>();
+				 HashMap 声明当前集合类型为HashMap
+				 String 代表第一组对象所允许的数据类型，通常将其叫做（Key）
+				 String 代表第二组对昂所允许的数据类型，通常称其叫做（Value）
+						Key-Value键值对，二者相互关联相互依存
+				 hashMap变量名
+				 = 赋值
+				 new 创建一个新的真是对象
+				 HashMap 创建的真实的集合类型为hashMap，通常该类型和声明类型一致或者实现类
+				 <String，String> 代表真实集合对象中允许存放的简直对类型，可以省略不写
+				 （） 调用无参数的构造方法
+				 
+			增：put（key,value）将一组键值对放入hashMap集合，必须一次放入两个对象
+				添加元素中，如果key重复，后者会将前这覆盖
+			删：remove（key）根据key的值找到所存储的键值对，删除一个元素，先找到目标位置，
+				remove（key，value）根据key=value的键值对，去寻找满足要求的键值对，删除
+				
+			改：用put方法进行覆盖，如果键不存在直接添加
+				replace方法，根据键修改值，如果键不存在，操作无效
+				replace（key，oldvalue，newva）方法，根据键值对进行匹配，匹配成功后才修改，键不存在，操作无效
+			查：get（key）根据key的值，查找对应的value的值
+			    如果找到了，返回结果为value，如果找不到返回null
+				containsKey（key）检查当前集合所有的价值对中，有么有key满足要求的，有就返回true，否则返回false
+				containsValue（value）用法同上
+				entrySet（）获取所有的键值对信息
+				keySet（）获取所有的键
+				values（）获取所欲的值
+				
+		TreeMap
+			（1）以红黑树的形式，来创建的集合类型，用来储存两组对象的映射关系
+				二叉树：每一个节点只有两个子节点
+			（2）按照key进行排序
+			（3）可以自定义key的排序规则，在构造方法中自定义
+		
+		增：add（）
+		改：如果在put方法中，key值重复会覆盖原有数据
+		    replace（可以，value）将key的值替换为新的value
+			replace（key，oldvalue，newvalue）根据key和value寻找匹配的键值对，如果匹配成功就用新的替换旧的
+		查：get（key）
+			 containskey（key）
+			 containsValue（value）
+			 
+		HashMap 底层为hash表+链表+红黑树
+				性能比TreeMap高，插入快，读取快
+				键值都可以为空
+		TreeMap 底层为红黑树
+				如果需要考虑插入键值对的大小关系或者排序是，首选TreeMap
+				值可以为空，键不能为空
+		HashSet 底层为HashMap，保证集合众元素不重复，和顺序无关
+		TreeSet 底层为TreeMap，保证有序
+		HashTable 底层为hash表结构
+			（1）线程安全的
+			（2）value不能为空
